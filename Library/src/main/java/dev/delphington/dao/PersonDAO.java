@@ -25,6 +25,13 @@ public class PersonDAO {
 
     }
 
+    public Person show(int id){
+        //Возвращаем список
+        return jdbcTemplate.query("SELECT * FROM person WHERE id = ?", new Object[]{id}, new PersonMapper())
+                .stream().findAny().orElse(null);
+    }
+
+
     public void save(Person person) {
         System.out.println("Person SAVE = " + person);
         jdbcTemplate.update("INSERT INTO person (name, year) VALUES (?,?)", person.getName(), person.getYear());

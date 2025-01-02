@@ -2,14 +2,10 @@ package dev.delphington.controllers;
 
 import dev.delphington.dao.PersonDAO;
 import dev.delphington.model.Person;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +24,8 @@ public class PeopleController {
     }
 
 
+
+    //Обнолвение
     @GetMapping("/new")
     public String createPerson(@ModelAttribute("personId") Person person, Model model) {
         model.addAttribute("personId", person);
@@ -41,4 +39,12 @@ public class PeopleController {
         return "redirect:/people";
     }
 
+    @GetMapping("/{id}")
+    public String showPerson(@PathVariable("id") int id, Model model){
+
+        Person person = personDAO.show(id);
+        model.addAttribute("person", person);
+        return "people/show";
+
+    }
 }

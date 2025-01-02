@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+</head>
+<body>
+
+
+<a th:href="@{/people/{id}(id=${person.getId()})}">
+    <span th:text="${person.getName()}"></span>
+    <span th:text="${person.getYear()}"></span>
+</a>
+
+
+</body>
+</html>
