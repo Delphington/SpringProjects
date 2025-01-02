@@ -1,22 +1,22 @@
 package dev.delphington.model;
 
-import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-@AllArgsConstructor
 @Setter
 @Getter
 @NoArgsConstructor
+@ToString
 public class Person {
     private Integer id;
-    private String FIO;
+    private String name;
     private Integer year;
 
-    public Person(Integer id, String name) {
+    public Person(Integer id, String name, int year) {
         this.id = id;
-        FIO = name;
+        this.name = name;
+        this.year = year;
     }
 }
