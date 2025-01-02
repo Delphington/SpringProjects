@@ -2,9 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Person</title>
 </head>
 <body>
+
+<form th:method="POST" th:action="@{/people}" th:object="${personId}">
+    <label for="personId">Enter name:</label>
+    <input type="text" th:field="*{name}" id="personId">
+
+    <label for="personYear">Enter year:</label>
+    <input type="text" th:field="*{year}" id="personYear">
+
+    <br/>
+    <input type="submit" value="Create">
+</form>
+
 
 </body>
 </html>
