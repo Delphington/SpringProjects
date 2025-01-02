@@ -24,7 +24,6 @@ public class PeopleController {
     }
 
 
-
     //Обнолвение
     @GetMapping("/new")
     public String createPerson(@ModelAttribute("personId") Person person, Model model) {
@@ -39,12 +38,34 @@ public class PeopleController {
         return "redirect:/people";
     }
 
+
     @GetMapping("/{id}")
-    public String showPerson(@PathVariable("id") int id, Model model){
-
-        Person person = personDAO.show(id);
-        model.addAttribute("person", person);
+    public String showPerson(@PathVariable("id") int id, Model model) {
+        model.addAttribute("person", personDAO.show(id));
         return "people/show";
-
     }
+
+
+    @DeleteMapping("/{id}")
+    public String deletePerson(@PathVariable("id") int id) {
+        personDAO.delete(id);
+        return "redirect:/people";
+    }
+
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("person") Person person, @PathVariable("id") int id) {
+        System.out.println("МЫ ТУТУ");
+        personDAO.update(id, person);
+        return "redirect:/people";
+    }
+
+
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id) {
+        System.out.println("From edit: " + personDAO.show(id));
+        model.addAttribute("person", personDAO.show(id));
+        return "people/edit";
+    }
+
 }

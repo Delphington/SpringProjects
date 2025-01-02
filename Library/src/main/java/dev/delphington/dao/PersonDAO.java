@@ -25,7 +25,7 @@ public class PersonDAO {
 
     }
 
-    public Person show(int id){
+    public Person show(int id) {
         //Возвращаем список
         return jdbcTemplate.query("SELECT * FROM person WHERE id = ?", new Object[]{id}, new PersonMapper())
                 .stream().findAny().orElse(null);
@@ -33,7 +33,17 @@ public class PersonDAO {
 
 
     public void save(Person person) {
-        System.out.println("Person SAVE = " + person);
         jdbcTemplate.update("INSERT INTO person (name, year) VALUES (?,?)", person.getName(), person.getYear());
+    }
+
+    public void delete(int id) {
+        jdbcTemplate.update("DELETE FROM person WHERE id = ?", id);
+    }
+
+    public void update(int id, Person person) {
+        System.out.println("FROM DAO UPDATE");
+        jdbcTemplate.update("UPDATE person SET name = ?, year = ? WHERE id = ?",
+                person.getName(), person.getYear(), id);
+
     }
 }

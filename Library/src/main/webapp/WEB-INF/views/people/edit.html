@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change person</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}">
+    <input type="hidden" name="_method" value="PATCH"/>
+    <label for="nameID">Enter name: </label>
+    <input type="text" th:field="*{name}" id="nameID">
+    <br/>
+
+    <label for="yearId">Enter year: </label>
+    <input type="text" th:field="*{year}" id="yearId">
+    <input type="submit" value="Update!"/>
+</form>
+</body>
+</html>
