@@ -9,7 +9,7 @@
 <form th:method="POST" th:action="@{/people}" th:object="${personId}">
     <label for="personId">Enter name:</label>
     <input type="text" th:field="*{name}" id="personId">
-
+    <br/>
     <label for="personYear">Enter year:</label>
     <input type="text" th:field="*{year}" id="personYear">
 

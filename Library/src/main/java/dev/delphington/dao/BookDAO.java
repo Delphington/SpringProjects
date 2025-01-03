@@ -22,7 +22,7 @@ public class BookDAO {
     }
 
     public void save(Book book) {
-        jdbcTemplate.update("INSERT INTO book (name, author, year) VALUES(?,?,?)",
+        jdbcTemplate.update("INSERT INTO book (person_id,name, author, year) VALUES(?,?,?,?)", 0,
                 book.getName(), book.getAuthor(), book.getYear());
     }
 
@@ -34,4 +34,12 @@ public class BookDAO {
         jdbcTemplate.update("UPDATE book SET name = ?, author = ?, year = ? WHERE id = ?",
                 book.getName(), book.getAuthor(), book.getYear(), id);
     }
+    //------------------------------------------------
+
+    public List<Book> getBook(int personId){
+        return jdbcTemplate.query("SELECT * FROM book WHERE person_id = ?", new Object[]{personId}, new BookMapper());
+
+    }
+
+
 }

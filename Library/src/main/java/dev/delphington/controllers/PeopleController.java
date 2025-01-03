@@ -1,6 +1,8 @@
 package dev.delphington.controllers;
 
+import dev.delphington.dao.BookDAO;
 import dev.delphington.dao.PersonDAO;
+import dev.delphington.model.Book;
 import dev.delphington.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,13 +18,15 @@ public class PeopleController {
     @Autowired
     private PersonDAO personDAO;
 
+    @Autowired
+    private BookDAO bookDAO;
+
     @GetMapping()
     public String index(Model model) {
         List<Person> personList = personDAO.index();
         model.addAttribute("people", personList);
         return "people/index";
     }
-
 
     //Обнолвение
     @GetMapping("/new")
@@ -41,7 +45,9 @@ public class PeopleController {
 
     @GetMapping("/{id}")
     public String showPerson(@PathVariable("id") int id, Model model) {
+        List<Book> listBook = bookDAO.getBook(id);
         model.addAttribute("person", personDAO.show(id));
+        model.addAttribute("bookList", listBook);
         return "people/show";
     }
 
@@ -66,5 +72,4 @@ public class PeopleController {
         model.addAttribute("person", personDAO.show(id));
         return "people/edit";
     }
-
 }
