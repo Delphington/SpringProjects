@@ -10,16 +10,19 @@
 
   <label for="name">Enter name: </label>
   <input type="text" th:field="*{name}" id="name">
+  <div style="color:red" th:if = "${#fields.hasErrors('year')}" th:errors = "*{year}">Year Error</div>
   <br/>
 
   <label for="nameAuthor">Enter author: </label>
   <input type="text" th:field="*{author}" id="nameAuthor">
+  <div style="color:red" th:if = "${#fields.hasErrors('author')}" th:errors = "*{author}">author Error</div>
   <br/>
 
   <label for="yearId">Enter year: </label>
   <input type="text" th:field="*{year}" id="yearId">
-
+  <div style="color:red" th:if = "${#fields.hasErrors('year')}" th:errors = "*{year}">year Error</div>
   <br/>
+
   <hr/>
   <input type="submit" value="Update!"/>
 </form>

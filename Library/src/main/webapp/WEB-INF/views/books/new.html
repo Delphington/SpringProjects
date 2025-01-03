@@ -9,6 +9,7 @@
 <form th:method="POST" th:action="@{/books}" th:object="${bookID}">
     <label for="nameBookId">Enter name:</label>
     <input type="text" th:field="*{name}" id="nameBookId">
+
     <div style="color:red" th:if = "${#fields.hasErrors('name')}" th:errors = "*{name}">Name Error</div>
     <br/>
 
