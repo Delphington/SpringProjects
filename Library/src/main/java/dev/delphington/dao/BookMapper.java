@@ -1,7 +1,6 @@
 package dev.delphington.dao;
 
 import dev.delphington.model.Book;
-import dev.delphington.model.Person;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
