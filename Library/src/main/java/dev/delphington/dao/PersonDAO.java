@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -26,6 +27,11 @@ public class PersonDAO {
         //Возвращаем список
         return jdbcTemplate.query("SELECT * FROM person WHERE id = ?", new Object[]{id}, new PersonMapper())
                 .stream().findAny().orElse(null);
+    }
+
+    public Optional<Person> show(String name) {
+        return jdbcTemplate.query("SELECT * FROM person WHERE name = ?", new Object[]{name}, new PersonMapper())
+                .stream().findAny();
     }
 
 

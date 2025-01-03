@@ -4,6 +4,7 @@ import dev.delphington.dao.BookDAO;
 import dev.delphington.dao.PersonDAO;
 import dev.delphington.model.Book;
 import dev.delphington.model.Person;
+import dev.delphington.util.PersonValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,9 +20,15 @@ public class PeopleController {
 
     @Autowired
     private PersonDAO personDAO;
+    @Autowired
+    private final PersonValidator personValidator;
 
     @Autowired
     private BookDAO bookDAO;
+
+    public PeopleController(PersonValidator personValidator) {
+        this.personValidator = personValidator;
+    }
 
     @GetMapping()
     public String index(Model model) {
@@ -41,6 +48,8 @@ public class PeopleController {
     @PostMapping()
     public String createPerson(@ModelAttribute("personId") @Valid Person person,
                                BindingResult bindingResult) {
+        personValidator.validate(person, bindingResult);
+
         if (bindingResult.hasErrors()) {
             return "people/new";
         }
@@ -68,6 +77,8 @@ public class PeopleController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("person") @Valid Person person,
                          BindingResult bindingResult, @PathVariable("id") int id) {
+
+        personValidator.validate(person, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "people/edit";

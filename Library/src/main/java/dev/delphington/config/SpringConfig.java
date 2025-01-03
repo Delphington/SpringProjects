@@ -18,7 +18,6 @@ import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 
 import javax.sql.DataSource;
 
-
 @Configuration
 @ComponentScan("dev.delphington")
 @EnableWebMvc
