@@ -9,10 +9,12 @@
     <input type="hidden" name="_method" value="PATCH"/>
     <label for="nameID">Enter name: </label>
     <input type="text" th:field="*{name}" id="nameID">
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
     <br/>
 
     <label for="yearId">Enter year: </label>
     <input type="text" th:field="*{year}" id="yearId">
+    <div style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">year error</div>
     <br/>
     <hr/>
 
