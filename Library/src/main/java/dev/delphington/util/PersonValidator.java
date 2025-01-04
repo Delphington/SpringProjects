@@ -18,7 +18,6 @@ public class PersonValidator implements Validator {
         this.personDAO = personDAO;
     }
 
-
     @Override
     public boolean supports(Class<?> clazz) {
         return Person.class.equals(clazz);
@@ -28,10 +27,8 @@ public class PersonValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Person person = (Person) target;
-
-        if(personDAO.show(person.getName()).isPresent()){
-            errors.rejectValue("name","", "This name is already taken");
+        if (personDAO.show(person.getName()).isPresent()) {
+            errors.rejectValue("name", "", "This name is already taken");
         }
-
     }
 }

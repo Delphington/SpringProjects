@@ -2,6 +2,7 @@ package dev.delphington.controllers;
 
 
 import dev.delphington.dao.BookDAO;
+import dev.delphington.dao.PersonDAO;
 import dev.delphington.model.Book;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,13 @@ public class BookController {
     @Autowired
     private final BookDAO bookDAO;
 
-    public BookController(BookDAO bookDAO) {
+    @Autowired
+    private final PersonDAO personDAO;
+
+
+    public BookController(BookDAO bookDAO, PersonDAO personDAO) {
         this.bookDAO = bookDAO;
+        this.personDAO = personDAO;
     }
 
     @GetMapping()
@@ -52,6 +58,7 @@ public class BookController {
     public String createBook(@PathVariable("id") int id, Model model) {
         Book temp = bookDAO.show(id);
         model.addAttribute("book", temp);
+        model.addAttribute("people", personDAO.index());
         return "books/show";
     }
 
@@ -80,4 +87,13 @@ public class BookController {
         return "redirect:/books";
     }
 
+
+    //Обработка запроса установки владельца книги
+    @PostMapping("/{id}")
+    public String update(@RequestParam("personId") int personId,
+                         @PathVariable("id") int id) {
+
+        bookDAO.updateOwner(id,personId);
+        return "redirect:/books";
+    }
 }

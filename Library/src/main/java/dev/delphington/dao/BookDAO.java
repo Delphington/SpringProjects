@@ -4,6 +4,7 @@ import dev.delphington.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 @Component
@@ -36,9 +37,13 @@ public class BookDAO {
     }
     //------------------------------------------------
 
-    public List<Book> getBook(int personId){
+    public List<Book> getBook(int personId) {
         return jdbcTemplate.query("SELECT * FROM book WHERE person_id = ?", new Object[]{personId}, new BookMapper());
 
+    }
+
+    public void updateOwner(int bookId, int personId) {
+        jdbcTemplate.update("UPDATE book SET person_id = ? WHERE id = ?", personId, bookId);
     }
 
 
