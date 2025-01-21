@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+</head>
+<body>
+
+
+<p th:text="${person.getName()}">VALUE</p>
+<p th:text="${person.getYear()}">VALUE</p>
+<br/>
+
+<p>Book List: </p>
+
+<div th:each="book : ${bookList}">
+    <a th:href="@{/books/{id}(id=${book.getId()})}">
+        <span th:text="${book.getName() + ', ' + book.getAuthor() +', ' + book.getYear() }"></span>
+    </a>
+</div>
+
+
+
+<br/>
+<form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
+    <input type="submit" value="Change person"/>
+</form>
+
+<br/>
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+    <input type="submit" value="Delete"/>
+</form>
+
+</body>
+</html>
