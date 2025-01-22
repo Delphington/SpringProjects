@@ -13,12 +13,16 @@
 
 <p>Book List: </p>
 
-<div th:each="book : ${bookList}">
-    <a th:href="@{/books/{id}(id=${book.getId()})}">
-        <span th:text="${book.getName() + ', ' + book.getAuthor() +', ' + book.getYear() }"></span>
-    </a>
+<div th:if="${not #lists.isEmpty(bookList)}">
+    <div th:each="book : ${bookList}">
+        <a th:href="@{/books/{id}(id=${book.getId()})}">
+            <span th:text="${book.getName() + ', ' + book.getAuthor() +', ' + book.getYear() }"></span>
+        </a>
+    </div>
 </div>
-
+<div th:unless="${not #lists.isEmpty(bookList)}">
+    <span>This user has not books</span>
+</div>
 
 
 <br/>

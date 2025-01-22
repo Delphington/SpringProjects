@@ -1,4 +1,4 @@
-package dev.delphington.dao;
+package dev.delphington.service;
 
 import dev.delphington.model.Book;
 import dev.delphington.model.Person;
@@ -6,17 +6,18 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository
-public class BookDAO {
+@Service
+public class BookService {
 
     private final SessionFactory sessionFactory;
 
     @Autowired
-    public BookDAO(SessionFactory sessionFactory) {
+    public BookService(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

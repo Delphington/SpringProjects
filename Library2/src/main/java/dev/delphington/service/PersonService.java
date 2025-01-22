@@ -1,4 +1,4 @@
-package dev.delphington.dao;
+package dev.delphington.service;
 
 import dev.delphington.model.Person;
 import lombok.Getter;
@@ -16,12 +16,12 @@ import java.util.Optional;
 @Getter
 @Setter
 @Repository
-public class PersonDAO {
+public class PersonService {
 
     private final SessionFactory sessionFactory;
 
     @Autowired
-    public PersonDAO(SessionFactory sessionFactory) {
+    public PersonService(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
