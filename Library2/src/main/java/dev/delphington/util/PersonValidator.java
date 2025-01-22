@@ -1,8 +1,8 @@
 package dev.delphington.util;
 
 
-import dev.delphington.dao.PersonDAO;
 import dev.delphington.model.Person;
+import dev.delphington.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -11,11 +11,11 @@ import org.springframework.validation.Validator;
 @Component
 public class PersonValidator implements Validator {
 
-    @Autowired
-    private final PersonDAO personDAO;
+    private final PersonService personService;
 
-    public PersonValidator(PersonDAO personDAO) {
-        this.personDAO = personDAO;
+    @Autowired
+    public PersonValidator(PersonService personService) {
+        this.personService = personService;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class PersonValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Person person = (Person) target;
-        if (personDAO.show(person.getName()).isPresent()) {
+        if (personService.show(person.getName()).isPresent()) {
             errors.rejectValue("name", "", "This name is already taken");
         }
     }

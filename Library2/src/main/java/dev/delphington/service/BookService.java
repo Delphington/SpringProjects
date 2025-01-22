@@ -2,6 +2,8 @@ package dev.delphington.service;
 
 import dev.delphington.model.Book;
 import dev.delphington.model.Person;
+import dev.delphington.repository.BookRepository;
+import dev.delphington.repository.PersonRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,63 +16,51 @@ import java.util.List;
 @Service
 public class BookService {
 
-    private final SessionFactory sessionFactory;
+
+    private final BookRepository bookRepository;
+    private final PersonRepository personRepository;
 
     @Autowired
-    public BookService(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public BookService(BookRepository bookRepository, PersonRepository personRepository) {
+        this.bookRepository = bookRepository;
+        this.personRepository = personRepository;
     }
-
 
     @Transactional(readOnly = true)
     public List<Book> index() {
-        System.out.println("FROM DAO");
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("SELECT b FROM Book b", Book.class).getResultList();
+        return bookRepository.findAll();
     }
 
     @Transactional(readOnly = true)
     public Book show(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.get(Book.class, id);
+        return bookRepository.findById(id);
     }
 
     @Transactional
     public void save(Book book) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(book);
+        bookRepository.save(book);
     }
 
     @Transactional
     public void delete(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        session.remove(session.get(Book.class, id));
+        bookRepository.removeById(id);
     }
 
     @Transactional
     public void update(int id, Book book) {
-        Session session = sessionFactory.getCurrentSession();
-        Book bookTemp = session.get(Book.class, id);
-
-        bookTemp.setYear(book.getYear());
-        bookTemp.setAuthor(book.getAuthor());
-        bookTemp.setName(book.getName());
-        bookTemp.setOwner(book.getOwner());
+        book.setId(id);
+        bookRepository.save(book);
     }
 
     @Transactional(readOnly = true)
     public List<Book> getBook(int personId) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.get(Person.class, personId).getBookList();
-
+        return personRepository.findById(personId).getBookList();
     }
 
     @Transactional
     public void updateOwner(int bookId, int personId) {
-        Session session = sessionFactory.getCurrentSession();
-        Person person = session.get(Person.class, personId);
-        Book book = session.get(Book.class, bookId);
-        book.setOwner(person);
-        person.getBookList().add(book);
+        Book b = bookRepository.findById(bookId);
+        b.setOwner(personRepository.findById(personId));
+        bookRepository.save(b);
     }
 }

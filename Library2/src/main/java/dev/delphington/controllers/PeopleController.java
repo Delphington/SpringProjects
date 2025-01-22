@@ -1,7 +1,5 @@
 package dev.delphington.controllers;
 
-import dev.delphington.dao.BookDAO;
-import dev.delphington.dao.PersonDAO;
 import dev.delphington.model.Book;
 import dev.delphington.model.Person;
 import dev.delphington.service.BookService;
