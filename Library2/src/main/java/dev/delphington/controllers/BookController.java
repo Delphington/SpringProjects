@@ -30,10 +30,23 @@ public class BookController {
 
 
     @GetMapping()
-    public String index(Model model) {
+    public String index(Model model,
+                        @RequestParam(value = "page", required = false) String page,
+                        @RequestParam(value = "books_per_page", required = false) String number) {
         System.out.println("FROM CONTROLLER");
-        List<Book> personList = bookService.index();
+
+        int numberPage;
+        int numberPerPage;
+        List<Book> personList;
+        try {
+            numberPage = Integer.parseInt(page);
+            numberPerPage = Integer.parseInt(number);
+            personList = bookService.index(numberPage, numberPerPage);
+        } catch (RuntimeException e) {
+            personList = bookService.index();
+        }
         model.addAttribute("bookList", personList);
+
         return "books/index";
     }
 
