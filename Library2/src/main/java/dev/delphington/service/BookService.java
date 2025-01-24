@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +37,17 @@ public class BookService {
 
     @Transactional(readOnly = true)
     public List<Book> index(int numberPage, int booksPerPage) {
-        return bookRepository.findAll(PageRequest.of(numberPage, booksPerPage)).getContent() ;
+        return bookRepository.findAll(PageRequest.of(numberPage, booksPerPage)).getContent();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Book> index(int numberPage, int booksPerPage, String nameSort) {
+        return bookRepository.findAll(PageRequest.of(numberPage, booksPerPage, Sort.by(nameSort))).getContent();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Book> index(String nameSort) {
+        return bookRepository.findAll(Sort.by(nameSort));
     }
 
     @Transactional(readOnly = true)

@@ -32,19 +32,39 @@ public class BookController {
     @GetMapping()
     public String index(Model model,
                         @RequestParam(value = "page", required = false) String page,
-                        @RequestParam(value = "books_per_page", required = false) String number) {
-        System.out.println("FROM CONTROLLER");
+                        @RequestParam(value = "books_per_page", required = false) String countPerPage,
+                        @RequestParam(value = "sort_by_year", required = false) String sortByYear) {
+        System.out.println("FROM CONTROLLER: page = " + page + ", number = " + countPerPage);
 
-        int numberPage;
-        int numberPerPage;
+        Integer numberPage;
+        Integer numberPerPage;
         List<Book> personList;
+        Boolean sort;
         try {
             numberPage = Integer.parseInt(page);
-            numberPerPage = Integer.parseInt(number);
-            personList = bookService.index(numberPage, numberPerPage);
+            numberPerPage = Integer.parseInt(countPerPage);
         } catch (RuntimeException e) {
+            numberPage = null;
+            numberPerPage = null;
+        }
+
+        try {
+            sort = Boolean.parseBoolean(sortByYear);
+        } catch (RuntimeException e) {
+            sort = null;
+        }
+
+        //Комбо
+        if (numberPage != null && numberPerPage != null && sort != null && sort == true) {
+            personList = bookService.index(numberPage, numberPerPage, "year");
+        }else if(numberPage != null && numberPerPage != null){
+            personList = bookService.index(numberPage, numberPerPage);
+        }else if(sort == true){
+            personList = bookService.index("year");
+        }else{
             personList = bookService.index();
         }
+
         model.addAttribute("bookList", personList);
 
         return "books/index";
