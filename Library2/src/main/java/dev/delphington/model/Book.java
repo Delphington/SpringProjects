@@ -43,7 +43,6 @@ public class Book {
     public String toString() {
         return "Book{" +
                "id=" + id +
-               ", owner_id=" + owner.getId() +
                ", name='" + name + '\'' +
                ", author='" + author + '\'' +
                ", year=" + year +

@@ -13,7 +13,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -79,7 +81,14 @@ public class BookService {
     @Transactional
     public void updateOwner(int bookId, int personId) {
         Book b = bookRepository.findById(bookId);
-        b.setOwner(personRepository.findById(personId));
+        Person person = personRepository.findById(personId);
+        person.setCreatedAt(LocalDate.now());
+        b.setOwner(person);
         bookRepository.save(b);
+    }
+
+
+    public Optional<Book> findByName(final String name) {
+        return bookRepository.findByName(name);
     }
 }

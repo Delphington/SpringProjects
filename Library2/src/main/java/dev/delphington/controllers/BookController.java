@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/books")
@@ -57,11 +58,11 @@ public class BookController {
         //Комбо
         if (numberPage != null && numberPerPage != null && sort != null && sort == true) {
             personList = bookService.index(numberPage, numberPerPage, "year");
-        }else if(numberPage != null && numberPerPage != null){
+        } else if (numberPage != null && numberPerPage != null) {
             personList = bookService.index(numberPage, numberPerPage);
-        }else if(sort == true){
+        } else if (sort == true) {
             personList = bookService.index("year");
-        }else{
+        } else {
             personList = bookService.index();
         }
 
@@ -69,6 +70,31 @@ public class BookController {
 
         return "books/index";
     }
+
+    //Страница поиск книги
+    @GetMapping("/search")
+    public String search(@ModelAttribute("SearchBook") Book book, Model model) {
+        System.out.println("====== SEARCH ============");
+        model.addAttribute("searchBook", new Book());
+        return "books/search";
+    }
+
+    @PostMapping("/search")
+    public String searchBook(@ModelAttribute("searchBook") Book searchBook, Model model) {
+        System.out.println("====== SEARCH BOOK ============");
+        System.out.println("searchBook: " + searchBook);
+
+        Optional<Book> bookTemp = bookService.findByName(searchBook.getName());
+        if (bookTemp.isPresent()) {
+            model.addAttribute("foundBook", bookTemp.get());
+        } else {
+            model.addAttribute("foundBook", null);
+        }
+
+        System.out.println(model);
+        return "books/search";
+    }
+
 
     @GetMapping("/new")
     public String create(@ModelAttribute("bookID") Book book, Model model) {

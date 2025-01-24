@@ -9,6 +9,7 @@
 
 <p th:text="${person.getName()}">VALUE</p>
 <p th:text="${person.getYear()}">VALUE</p>
+<p style="color:blue" th:if="${person.getDaysBetween() >10 }" th:text="Refund of overdue">VALUE</p>
 <br/>
 
 <p>Book List: </p>
@@ -34,6 +35,8 @@
 <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
     <input type="submit" value="Delete"/>
 </form>
+
+
 
 </body>
 </html>

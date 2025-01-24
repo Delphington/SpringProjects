@@ -7,14 +7,17 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.cglib.core.Local;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name= "person")
+@Table(name = "person")
 public class Person {
 
     @Id
@@ -33,6 +36,22 @@ public class Person {
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private List<Book> bookList;
+
+
+    @Column(name = "created")
+    @Temporal(TemporalType.DATE)
+    private LocalDate createdAt;
+
+    @Transient
+    private long daysBetween;
+
+
+    public long getDaysBetween() {
+        daysBetween = ChronoUnit.DAYS.between(createdAt, LocalDate.now());
+        return daysBetween;
+
+    }
+
 
     @Override
     public String toString() {

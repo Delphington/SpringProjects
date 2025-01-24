@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/books/search}" th:object="${searchBook}">
+    <label for="nameBookId">Enter the book: </label>
+    <input type="text" th:field="*{name}" id="nameBookId">
+
+    <input type="submit" value="Search">
+</form>
+
+<div th:if="${foundBook != null}">
+    <p th:text="'Name: ' + ${foundBook.name}"></p>
+    <p th:text="'Author: ' + ${foundBook.author}"></p>
+    <p th:text="'Year: ' + ${foundBook.year}"></p>
+</div>
+<div th:if="${foundBook == null}">
+    <p th:text="This book is not found"></p>
+</div>
+</body>
+</html>

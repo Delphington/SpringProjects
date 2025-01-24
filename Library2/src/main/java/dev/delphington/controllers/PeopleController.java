@@ -64,14 +64,19 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String showPerson(@PathVariable("id") int id, Model model) {
         List<Book> listBook = bookService.getBook(id);
-        model.addAttribute("person", personService.show(id));
+        Person person = personService.show(id);
+
+        System.out.println("======================");
+        System.out.println("Person_id = " + id + "Разница: " + person.getDaysBetween());
+        System.out.println("Books: " + listBook);
+        System.out.println("======================");
+
+
+        model.addAttribute("person", person);
         model.addAttribute("bookList", listBook);
 
 
-        System.out.println("======================");
-        System.out.println("Person_id = " + id);
-        System.out.println("Books: " + listBook);
-        System.out.println("======================");
+
 
 
         return "people/show";
