@@ -1,4 +1,4 @@
-package dev.delphington.app.rest.util;
+package dev.delphington.app.rest.util.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

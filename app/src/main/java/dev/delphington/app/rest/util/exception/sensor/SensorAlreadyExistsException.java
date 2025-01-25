@@ -1,4 +1,4 @@
-package dev.delphington.app.rest.util.exception;
+package dev.delphington.app.rest.util.exception.sensor;
 
 
 public class SensorAlreadyExistsException extends RuntimeException {

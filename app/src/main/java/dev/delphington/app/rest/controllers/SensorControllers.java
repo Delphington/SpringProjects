@@ -3,19 +3,18 @@ package dev.delphington.app.rest.controllers;
 import dev.delphington.app.rest.dto.SensorDTO;
 import dev.delphington.app.rest.models.Sensor;
 import dev.delphington.app.rest.servies.SensorService;
-import dev.delphington.app.rest.util.SensorErrorResponse;
-import dev.delphington.app.rest.util.exception.SensorAlreadyExistsException;
-import dev.delphington.app.rest.util.exception.SensorNameValidationException;
+import dev.delphington.app.rest.util.response.SensorErrorResponse;
+import dev.delphington.app.rest.util.exception.sensor.SensorAlreadyExistsException;
+import dev.delphington.app.rest.util.exception.sensor.SensorNameValidationException;
+import dev.delphington.app.rest.util.srv.ErrorUtils;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -24,11 +23,13 @@ public class SensorControllers {
 
     private final SensorService sensorService;
     private final ModelMapper modelMapper;
+    private final ErrorUtils errorUtils;
 
     @Autowired
-    public SensorControllers(SensorService sensorService, ModelMapper modelMapper) {
+    public SensorControllers(SensorService sensorService, ModelMapper modelMapper, ErrorUtils errorUtils) {
         this.sensorService = sensorService;
         this.modelMapper = modelMapper;
+        this.errorUtils = errorUtils;
     }
 
     @GetMapping("/capy")
@@ -41,7 +42,7 @@ public class SensorControllers {
     public ResponseEntity<HttpStatus> registrationSensor(@RequestBody @Valid SensorDTO sensorDTO,
                                                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            String messageError = getErrors(bindingResult);
+            String messageError = errorUtils.getErrors(bindingResult);
             throw new SensorNameValidationException(messageError);
         }
 
@@ -79,16 +80,6 @@ public class SensorControllers {
     }
 
 
-    private String getErrors(BindingResult bindingResult) {
-        StringBuilder messageError = new StringBuilder();
-        List<FieldError> listErrors = bindingResult.getFieldErrors();
-        for (FieldError error : listErrors) {
-            messageError.append(error.getField())
-                    .append(" - ")
-                    .append(error.getDefaultMessage())
-                    .append(";");
-        }
-        return messageError.toString();
-    }
+
 
 }
