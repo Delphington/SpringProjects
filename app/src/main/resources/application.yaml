@@ -6,7 +6,7 @@ spring:
     name: firstRest
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5433/scanner # This is used first, since it's earlier
+    url: jdbc:postgresql://localhost:5435/scanner # This is used first, since it's earlier
     username: postgres
     password: postgres
   jpa:
