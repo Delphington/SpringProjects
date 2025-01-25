@@ -1,5 +1,6 @@
 package dev.delphington.app.rest.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class Measurement {
 
     @ManyToOne
     @JoinColumn(name = "sensor_id", referencedColumnName = "id")
+    @JsonManagedReference
     private Sensor sensor;
 
     @Column(name = "value")
@@ -36,4 +38,16 @@ public class Measurement {
 
     @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
+
+    @Override
+    public String toString() {
+        return "Measurement{" +
+               "id=" + id +
+               ", sensor=" + sensor +
+               ", value=" + value +
+               ", raining=" + raining +
+               ", createdAt=" + createdAt +
+               ", modifiedAt=" + modifiedAt +
+               '}';
+    }
 }

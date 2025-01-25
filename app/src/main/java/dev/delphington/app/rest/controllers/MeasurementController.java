@@ -8,15 +8,20 @@ import dev.delphington.app.rest.servies.SensorService;
 import dev.delphington.app.rest.util.exception.measurement.MeasurementFieldValidationException;
 import dev.delphington.app.rest.util.exception.measurement.MeasurementSensorNotFoundException;
 import dev.delphington.app.rest.util.response.MeasurementErrorResponse;
+import dev.delphington.app.rest.util.srv.ConvertUtils;
 import dev.delphington.app.rest.util.srv.ErrorUtils;
+import jakarta.persistence.Convert;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.integration.IntegrationProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -25,14 +30,14 @@ public class MeasurementController {
 
     private final MeasurementService measurementService;
     private final SensorService sensorService;
-    private final ModelMapper modelMapper;
+    private final ConvertUtils convertUtils;
     private final ErrorUtils errorUtils;
 
     @Autowired
-    public MeasurementController(MeasurementService measurementService, SensorService sensorService, ModelMapper modelMapper, ErrorUtils errorUtils) {
+    public MeasurementController(MeasurementService measurementService, SensorService sensorService, ConvertUtils convertUtils, ErrorUtils errorUtils) {
         this.measurementService = measurementService;
         this.sensorService = sensorService;
-        this.modelMapper = modelMapper;
+        this.convertUtils = convertUtils;
         this.errorUtils = errorUtils;
     }
 
@@ -46,7 +51,7 @@ public class MeasurementController {
             throw new MeasurementFieldValidationException(messageError);
         }
 
-        Measurement measurement = convertToMeasurement(measurementDTO);
+        Measurement measurement = convertUtils.convertToMeasurement(measurementDTO);
 
         Optional<Sensor> sensorOptional = sensorService.findByOne(measurement.getSensor());
         if (sensorOptional.isEmpty()) {
@@ -59,14 +64,18 @@ public class MeasurementController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
-    private Measurement convertToMeasurement(MeasurementDTO measurementDTO) {
-        return modelMapper.map(measurementDTO, Measurement.class);
+    @GetMapping()
+    public List<MeasurementDTO> getMeasurements() {
+        List<Measurement> list = measurementService.findAll();
+        List<MeasurementDTO> measurementDTO = new ArrayList<>();
+        for (Measurement item : list) {
+            MeasurementDTO temp = convertUtils.convertToMeasurementDTO(item);
+            temp.setSensorDTO(convertUtils.convertToSensorDTO(item.getSensor()));
+            measurementDTO.add(temp);
+        }
+        return measurementDTO;
     }
 
-    private MeasurementDTO convertToMeasurementDTO(Measurement measurement) {
-        return modelMapper.map(measurement, MeasurementDTO.class);
-    }
 
     @ExceptionHandler
     public ResponseEntity<MeasurementErrorResponse> handlerException(MeasurementFieldValidationException e) {

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class MeasurementService {
@@ -22,6 +23,11 @@ public class MeasurementService {
     @Transactional
     public void save(Measurement measurement) {
         measurementRepository.save(enrich(measurement));
+    }
+
+    @Transactional(readOnly = true)
+    public List<Measurement> findAll(){
+        return measurementRepository.findAll();
     }
 
 
