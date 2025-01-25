@@ -24,7 +24,6 @@ public class SensorService {
         sensorRepository.save(enrich(sensor));
     }
 
-
     @Transactional(readOnly = true)
     public Optional<Sensor> findByOne(Sensor sensor) {
         return findByName(sensor.getName());
@@ -40,6 +39,4 @@ public class SensorService {
         sensor.setModifiedAt(LocalDateTime.now());
         return sensor;
     }
-
-
 }
