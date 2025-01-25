@@ -1,7 +1,9 @@
 package dev.delphington.app.rest.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -10,6 +12,8 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "measurement")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Measurement {
 
     @Id
@@ -17,19 +21,19 @@ public class Measurement {
     @Column(name = "id")
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "sensor_id", referencedColumnName = "id")
+    private Sensor sensor;
+
     @Column(name = "value")
     private Double value;
 
     @Column(name = "raining")
     private Boolean raining;
 
-    @ManyToOne
-    @JoinColumn(name = "sensor_id", referencedColumnName = "id")
-    private Sensor sensor;
-
-    @Column(name = "createdAt")
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column(name = "modifieddAt")
+    @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
 }

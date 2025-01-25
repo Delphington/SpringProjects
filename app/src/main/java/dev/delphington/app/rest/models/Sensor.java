@@ -40,3 +40,7 @@ public class Sensor {
 }
 
 //todo: на время поставить
+
+//Migration
+
+//Log

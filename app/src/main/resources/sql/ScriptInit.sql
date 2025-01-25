@@ -15,3 +15,7 @@ CREATE TABLE Measurement
     created_at  TIMESTAMP                  NOT NULL,
     modified_at TIMESTAMP                  NOT NULL
 );
+
+INSERT INTO public.sensor (id, name, created_at, modified_at) VALUES (1, 'Capybara', '2025-01-25 20:53:18.344963', '2025-01-25 20:53:18.344963');
+INSERT INTO public.sensor (id, name, created_at, modified_at) VALUES (2, 'CapybaraS', '2025-01-25 20:55:02.936686', '2025-01-25 20:55:02.936686');
+INSERT INTO public.sensor (id, name, created_at, modified_at) VALUES (3, 'DelphingtonScaner', '2025-01-25 21:43:38.048520', '2025-01-25 21:43:38.048520');

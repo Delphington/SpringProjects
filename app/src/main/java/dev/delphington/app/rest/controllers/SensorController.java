@@ -19,22 +19,17 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/sensors")
-public class SensorControllers {
+public class SensorController {
 
     private final SensorService sensorService;
     private final ModelMapper modelMapper;
     private final ErrorUtils errorUtils;
 
     @Autowired
-    public SensorControllers(SensorService sensorService, ModelMapper modelMapper, ErrorUtils errorUtils) {
+    public SensorController(SensorService sensorService, ModelMapper modelMapper, ErrorUtils errorUtils) {
         this.sensorService = sensorService;
         this.modelMapper = modelMapper;
         this.errorUtils = errorUtils;
-    }
-
-    @GetMapping("/capy")
-    public String getGe(){
-        return "CAPYBARA";
     }
 
 
@@ -50,6 +45,7 @@ public class SensorControllers {
         if (sensorOptional.isPresent()) {
             throw new SensorAlreadyExistsException("This sensor already exists");
         }
+
 
         sensorService.save(convertToSensor(sensorDTO));
 
