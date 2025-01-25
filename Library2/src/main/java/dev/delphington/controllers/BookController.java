@@ -35,7 +35,6 @@ public class BookController {
                         @RequestParam(value = "page", required = false) String page,
                         @RequestParam(value = "books_per_page", required = false) String countPerPage,
                         @RequestParam(value = "sort_by_year", required = false) String sortByYear) {
-        System.out.println("FROM CONTROLLER: page = " + page + ", number = " + countPerPage);
 
         Integer numberPage;
         Integer numberPerPage;

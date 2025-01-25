@@ -20,7 +20,6 @@ import java.util.List;
 public class PeopleController {
 
 
-
     private final PersonService personService;
     private final BookService bookService;
     private final PersonValidator personValidator;
@@ -66,18 +65,8 @@ public class PeopleController {
         List<Book> listBook = bookService.getBook(id);
         Person person = personService.show(id);
 
-        System.out.println("======================");
-        System.out.println("Person_id = " + id + "Разница: " + person.getDaysBetween());
-        System.out.println("Books: " + listBook);
-        System.out.println("======================");
-
-
         model.addAttribute("person", person);
         model.addAttribute("bookList", listBook);
-
-
-
-
 
         return "people/show";
     }
