@@ -1,7 +1,6 @@
 package dev.delphington.app.rest.servies;
 
 import dev.delphington.app.rest.models.Measurement;
-import dev.delphington.app.rest.models.Sensor;
 import dev.delphington.app.rest.repositories.MeasurementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +25,13 @@ public class MeasurementService {
     }
 
     @Transactional(readOnly = true)
-    public List<Measurement> findAll(){
+    public List<Measurement> getRainMeasurements() {
+        return measurementRepository.getMeasurementByRainingIsTrue();
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<Measurement> findAll() {
         return measurementRepository.findAll();
     }
 

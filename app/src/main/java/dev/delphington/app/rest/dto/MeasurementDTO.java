@@ -1,5 +1,6 @@
 package dev.delphington.app.rest.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dev.delphington.app.rest.models.Sensor;
 import jakarta.validation.constraints.*;
@@ -20,6 +21,6 @@ public class MeasurementDTO {
     private Boolean raining;
 
     @NotNull(message = "Sensor cannot be null")
-    @JsonManagedReference
-    private SensorDTO sensorDTO;
+
+    private Sensor sensor;
 }

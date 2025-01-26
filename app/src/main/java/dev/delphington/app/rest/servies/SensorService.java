@@ -1,5 +1,6 @@
 package dev.delphington.app.rest.servies;
 
+import dev.delphington.app.rest.models.Measurement;
 import dev.delphington.app.rest.models.Sensor;
 import dev.delphington.app.rest.repositories.SensorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,10 @@ public class SensorService {
 
     @Transactional
     public void save(Sensor sensor) {
+        System.out.println(sensor);
         sensorRepository.save(enrich(sensor));
     }
+
 
     @Transactional(readOnly = true)
     public Optional<Sensor> findByOne(Sensor sensor) {

@@ -9,7 +9,6 @@ import dev.delphington.app.rest.util.exception.sensor.SensorNameValidationExcept
 import dev.delphington.app.rest.util.srv.ConvertUtils;
 import dev.delphington.app.rest.util.srv.ErrorUtils;
 import jakarta.validation.Valid;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +40,6 @@ public class SensorController {
             String messageError = errorUtils.getErrors(bindingResult);
             throw new SensorNameValidationException(messageError);
         }
-
 
         Optional<Sensor> sensorOptional = sensorService.findByOne(convertUtils.convertToSensor(sensorDTO));
         if (sensorOptional.isPresent()) {

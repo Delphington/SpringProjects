@@ -8,6 +8,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class ConvertUtils {
 
@@ -25,6 +28,18 @@ public class ConvertUtils {
     public MeasurementDTO convertToMeasurementDTO(Measurement measurement) {
         return modelMapper.map(measurement, MeasurementDTO.class);
     }
+
+    public List<MeasurementDTO> convertToListMeasurementDTO(List<Measurement> list) {
+
+        List<MeasurementDTO> measurementDTO = new ArrayList<>();
+        for (Measurement item : list) {
+            MeasurementDTO temp = convertToMeasurementDTO(item);
+         //   temp.setSensorDTO(convertToSensorDTO(item.getSensor()));
+            measurementDTO.add(temp);
+        }
+        return measurementDTO;
+    }
+
 
     public SensorDTO convertToSensorDTO(Sensor sensor) {
         return modelMapper.map(sensor, SensorDTO.class);
