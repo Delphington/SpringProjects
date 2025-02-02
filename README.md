@@ -16,8 +16,7 @@
 
 ![REST](https://img.shields.io/badge/REST-API-brightgreen)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-logo-316192?logo=postgresql)](https://www.postgresql.org/)
-[![JDBC](https://img.shields.io/badge/JDBC-blue.svg)](https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/)
-![JDBC](https://img.shields.io/badge/JDBC-Template-green)
+![JDBC](https://img.shields.io/badge/JDBC-Template-red)
 [![Spring Web](https://img.shields.io/badge/Spring%20Web-green.svg)](https://spring.io/projects/spring-framework)
 [![Spring Core](https://img.shields.io/badge/Spring%20Core-green.svg)](https://spring.io/projects/spring-framework)
 [![Spring MVC](https://img.shields.io/badge/Spring%20MVC-logo-6DB33F?logo=spring)](https://spring.io/projects/spring-framework)
