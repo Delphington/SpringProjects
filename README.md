@@ -25,5 +25,5 @@
 [![Apache Maven](https://img.shields.io/badge/Apache%20Maven-logo-C71A36?logo=apache-maven)](https://maven.apache.org/)
 
 [![JDBC Template](https://img.shields.io/badge/JDBC%20Template-blue.svg)](https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#jdbc-template)
-[![REST API](https://img.shields.io/badge/REST%20API-orange.svg)](https://restfulapi.net/)
-[![Validation](https://img.shields.io/badge/Validation-purple.svg)](https://beanvalidation.org/)
+![REST](https://img.shields.io/badge/REST-API-brightgreen)
+![JDBC](https://img.shields.io/badge/JDBC-Template-yellow)
