@@ -1,6 +1,10 @@
 # 🍃 Spring Course
 
 
+
+
+## 💻 Project 1
+
 **Задание:** В местной библиотеке хотят перейти на цифровой учет книг. Вам
 необходимо реализовать веб-приложение для них. Библиотекари
 должны иметь возможность регистрировать читателей, выдавать им
@@ -8,12 +12,8 @@
 книгу обратно в библиотеку).
 
 
-## 💻 Project 1
-
-
 ### 🛠 Стек
 
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-green.svg)](https://www.postgresql.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-logo-316192?logo=postgresql)](https://www.postgresql.org/)
 [![Spring Core](https://img.shields.io/badge/Spring%20Core-green.svg)](https://spring.io/projects/spring-framework)
 [![Spring Web](https://img.shields.io/badge/Spring%20Web-green.svg)](https://spring.io/projects/spring-framework)
