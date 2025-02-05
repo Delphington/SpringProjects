@@ -1,4 +1,4 @@
-# 🍃 Spring Course
+# 🍃 Spring
 
 ## ![💻 Project 1](https://github.com/Delphington/SpringProjects/tree/master/Library)
 
